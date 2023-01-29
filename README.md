@@ -1,19 +1,13 @@
-# EFDM
-The official codes of our CVPR2022 paper: [Exact Feature Distribution Matching for Arbitrary Style Transfer and Domain Generalization](https://arxiv.org/abs/2203.07740)
+# [Re] Exact Feature Distribution Matching for Arbitrary Style Transfer and Domain Generalization
+The official codes of our ML Reproducibility Challenge 2022 report: [[Re] Exact Feature Distribution Matching for Arbitrary Style Transfer and Domain Generalization]()
 
-**One Sentence Summary:** EFDM outperforms AdaIN, which only matches first and second order statistics, by implicitly matching high orders statistics in an efficient manner. 
+Original Paper: [Exact Feature Distribution Matching for Arbitrary Style Transfer and Domain Generalization](https://arxiv.org/abs/2203.07740)
 
-| ![comparison.png](comparison.png) |
-|:-------------:|
-| Fig.1: AdaIN vs. histogram matching vs. EFDM via Sort-matching. |
+**Summary:** In this reproducibility study, we present our results and experience during replicating the paper, titled Exact Feature Distribution Matching for Arbitrary Style Transfer and Domain Generalization. In real‐world scenarios, the feature distributions are mostly much more complicated than Gaussian, so only mean and standard deviation may not be fully representative to match them. This paper introduces a novel strategy to exactly match the histograms of image features via the Sort‐Matching algorithm in a computationally feasible way. We were able to reproduce most of the results presented in the original paper both qualitatively and quantitatively. 
 
 
-**A brief introduction:**
-Many real-world tasks (e.g., Arbitrary Style Transfer and Domain Generalizaiton) can be cast as a feature distribution matching problem.
-With the assumption of Gaussian feature distribution, conventional feature distribution matching methods usually match the mean and standard deviation of features. 
-However, the feature distributions of real-world data are usually much more complicated than Gaussian, which cannot be accurately matched by using only the first-order and second-order statistics, while it is computationally prohibitive to use high-order statistics for distribution matching. 
-In this work, we, for the first time to our best knowledge, propose to perform Exact Feature Distribution Matching (EFDM) by exactly matching the empirical Cumulative Distribution Functions (eCDFs) of image features, which could be implemented by applying the Exact Histogram Matching (EHM) in the image feature space.
-Particularly, a fast EHM algorithm, named Sort-Matching, is employed to perform EFDM in a plug-and-play manner with minimal cost.
+**Scope of Reproducibility** In the scope of this study, we aim to reproduce all the qualitative and quantitative results on two tasks, namely Arbitrary Style Transfer (AST) and Domain Generalization (DG). Moreover, we investigate the capability of forming better style representations by EFDM in another recent study.
+
 Below we show a brief implementation of it in PyTorch:
 ```python
 import torch
@@ -27,12 +21,13 @@ def exact_feature_distribution_matching(content, style):
     return transferred_content.view(B, C, W, H)
 ```
 
-In our paper, we have demonstrated the effectiveness of EFDMix on three tasks: arbitrary style transfer, 
-cross-domain image classification, and cross-domain person re-identification. The source code for reproducing all experiments can be found in `EFDM/ArbitraryStyleTransfer`, `EFDM/DomainGeneralization/imcls`, and `EFDM/DomainGeneralization/reid`, respectively.
 
-The review and supplementary material are given in the `Review_CVPR22.pdf` and `Supplementary_Material.pdf`, respectively.
 
-To cite EFDM in your publications, please use the following bibtex entry:
+In our report, We have reproduced the experiments done on two selected tasks, and compared their results with the reported results. Although our experimental results are not identical to the reported ones, we can validate the claims made by the original study according to these results. The source code for reproducing all experiments can be found in `EFDM/ArbitraryStyleTransfer`, `EFDM/DomainGeneralization/imcls`, and `EFDM/DomainGeneralization/reid`, respectively. Our reproduced results can be found in `EFDM/ArbitraryStyleTransfer/reproduced_results` and `EFDM/DomainGeneralization/reproduced_results`.
+
+README file of the original paper are given in `OriginalPaper/README.md`.
+
+To cite the original paper and the reproduction paper in your publications, please use the following bibtex entries:
 ```
 @inproceedings{zhang2021exact,
   title={Exact Feature Distribution Matching for Arbitrary Style Transfer and Domain Generalization},
@@ -40,4 +35,6 @@ To cite EFDM in your publications, please use the following bibtex entry:
   booktitle={CVPR},
   year={2022}
 }
+```
+```
 ```
