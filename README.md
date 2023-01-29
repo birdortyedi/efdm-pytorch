@@ -2,6 +2,11 @@
 The official codes of our ML Reproducibility Challenge 2022 report: [[Re] Exact Feature Distribution Matching for Arbitrary Style Transfer and Domain Generalization]()
 
 Original Paper: [Exact Feature Distribution Matching for Arbitrary Style Transfer and Domain Generalization](https://arxiv.org/abs/2203.07740)
+by Yabin Zhang, Minghan Li, Ruihuang Li, Kui Jia, Lei Zhang.
+
+Original Repository: [EFDM](https://github.com/YBZh/EFDM/) by [YBZh](https://github.com/YBZh/)
+
+README file of the original paper are given in `OriginalPaper/README.md`. 
 
 **Summary:** In this reproducibility study, we present our results and experience during replicating the paper, titled Exact Feature Distribution Matching for Arbitrary Style Transfer and Domain Generalization. In real‐world scenarios, the feature distributions are mostly much more complicated than Gaussian, so only mean and standard deviation may not be fully representative to match them. This paper introduces a novel strategy to exactly match the histograms of image features via the Sort‐Matching algorithm in a computationally feasible way. We were able to reproduce most of the results presented in the original paper both qualitatively and quantitatively. 
 
@@ -59,23 +64,23 @@ image. Note that the compared methods run on a single Tesla V100, while our meas
 | R‐18 w/ EFDMix | 83.9±0.4 | 79.4±0.7 | 96.8±0.4 | 75.0±0.7 | 83.9 |
 | R‐18 w/ EFDMix (R) | 80.6±1.5 | 78.1±0.6 | 94.1±0.9 | 72.3±1.2 | 81.3 |
 | R‐18 w/ EFDMix (R) α = 0.5 | ‐±‐ | ‐±‐ | ‐±‐ | ‐±‐ | ‐ |
-| R‐18 w/ EFDMix (R) α = 1.0 | ‐±‐ | ‐±‐ | ‐±‐ | ‐±‐ | ‐ |
+| R‐18 w/ EFDMix (R) α = 1.0 | 80.9±1.4 | 78.1±0.9 | 94.14±1.3 | 71.4±2.1 | 81.1 |
 | R‐50 w/ MixStyle | 90.3±0.3 | 82.3±0.7 | 97.7±0.4 | 74.7±0.7 | 86.2 |
 | R‐50 w/ EFDMix | 90.6±0.3 | 82.5±0.7 | 98.1±0.2 | 76.4±1.2 | 86.9 |
 | R‐50 w/ EFDMix (R) | 87.4±1.6 | 81.8±1.6 | 94.3±2.2 | 73.7±1.7 | 84.3 |
 | R‐50 w/ EFDMix (R) α = 0.5 | 87.6±1.7 | 81.1±1.3 | 94.5±1.7 | 73.9±1.5 | 84.3 |
-| R‐50 w/ EFDMix (R) α = 1.0 | ‐±‐ | ‐±‐ | ‐±‐ | ‐±‐ | ‐ |
+| R‐50 w/ EFDMix (R) α = 1.0 | 87.4±2.1 | 81.6±1.4 | 94.7±1.6 | 74.3±1.6 | 84.5 |
 | Single source generalization |
 | R‐18 w/ MixStyle | 61.9±2.2 | 71.5±0.8 | 41.2±1.8 | 32.2±4.1 | 51.7 |
 | R‐18 w/ EFDMix | 63.2±2.3 | 73.9±0.7 | 42.5±1.8 | 38.1±3.7 | 54.4 |
 | R‐18 w/ EFDMix (R) | 63.5±3.4 | 72.9±1.2 | 41.9±1.4 | 36.3±3.1 | 53.7 |
 | R‐18 w/ EFDMix (R) α = 0.5 | ‐±‐ | ‐±‐ | ‐±‐ | ‐±‐ | ‐ |
-| R‐18 w/ EFDMix (R) α = 1.0 | ‐±‐ | ‐±‐ | ‐±‐ | ‐±‐ | ‐ |
+| R‐18 w/ EFDMix (R) α = 1.0 | 63.7±3.4 | 73.2±0.9 | 41.9±1.75 | 36.3±2.4 | 53.7 |
 | R‐50 w/ MixStyle | 73.2±1.1 | 74.8±1.1 | 46.0±2.0 | 40.6±2.0 | 58.6 |
 | R‐50 w/ EFDMix | 75.3±0.9 | 77.4±0.8 | 48.0±0.9 | 44.2±2.4 | 61.2 |
 | R‐50 w/ EFDMix (R) | 73.0±2.2 |77.2±0.9 | 48.3±1.2 | 47.7±2.7 | 61.6 |
 | R‐50 w/ EFDMix (R) α = 0.5 | 73.8±1.6 | 77.6±1.3 | 47.9±1.2 | 46.7±3.2 | 61.5 |
-| R‐50 w/ EFDMix (R) α = 1.0 | ‐±‐ | ‐±‐ | ‐±‐ | ‐±‐ | ‐ |
+| R‐50 w/ EFDMix (R) α = 1.0 | 73.7±1.2 | 77.8±0.4 | 47.9±0.7 | 46.0±4.2 | 61.4 | 
 
 * DG results on person re‐ID task. (R) refers to our reproduced results.
 
@@ -100,8 +105,6 @@ In our report, We have reproduced the experiments done on two selected tasks, an
 **What was easy:** The given code in the original repository was easy to follow, and it was well‐written in general. The authors designed the documentation and the source code in a way that anyone who has fundamental knowledge of Python could run the experiments, or even generate their own stylized image from any content.
 
 **What was difficult:** We would like to add the reproduced outputs by Histogram Matching (HM) along with the others, however the training of HM was based on CPU and the estimated time to complete a single training was around 15 days in our setup. Consequently, we could not include the reproduced outputs by HM to this report. Moreover, it could not be possible to add t‐SNE visualizations to this report, as in the original paper, due to the lack of clarity in the documentation of its script.
-
-README file of the original paper are given in `OriginalPaper/README.md`.
 
 To cite the original paper and the reproduction paper in your publications, please use the following bibtex entries:
 ```
