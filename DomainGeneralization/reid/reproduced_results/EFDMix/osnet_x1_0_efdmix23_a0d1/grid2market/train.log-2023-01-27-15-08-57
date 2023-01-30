@@ -1,0 +1,366 @@
+Show configuration
+adam:
+  beta1: 0.9
+  beta2: 0.999
+cuhk03:
+  classic_split: False
+  labeled_images: False
+  use_metric_cuhk03: False
+data:
+  combineall: False
+  height: 256
+  k_tfm: 1
+  load_train_targets: False
+  norm_mean: [0.485, 0.456, 0.406]
+  norm_std: [0.229, 0.224, 0.225]
+  root: /home/mert/reid_data
+  save_dir: EFDMix/osnet_x1_0_efdmix23_a0d1/grid2market
+  sources: ['grid']
+  split_id: 0
+  targets: ['market1501']
+  transforms: ['random_flip', 'color_jitter']
+  type: image
+  width: 128
+  workers: 4
+loss:
+  name: softmax
+  softmax:
+    label_smooth: True
+  triplet:
+    margin: 0.3
+    weight_t: 1.0
+    weight_x: 0.0
+market1501:
+  use_500k_distractors: False
+model:
+  load_weights: 
+  name: osnet_x1_0_efdmix23_a0d1
+  pretrained: True
+  resume: 
+rmsprop:
+  alpha: 0.99
+sampler:
+  num_cams: 1
+  num_instances: 4
+  train_sampler: RandomSampler
+  train_sampler_t: RandomSampler
+sgd:
+  dampening: 0.0
+  momentum: 0.9
+  nesterov: False
+test:
+  batch_size: 300
+  dist_metric: cosine
+  eval_freq: 5
+  evaluate: False
+  normalize_feature: False
+  ranks: [1, 5, 10, 20]
+  rerank: False
+  start_eval: 0
+  visrank: False
+  visrank_topk: 10
+train:
+  base_lr_mult: 0.2
+  batch_size: 32
+  fixbase_epoch: 0
+  gamma: 0.1
+  lr: 0.05
+  lr_scheduler: single_step
+  max_epoch: 60
+  new_layers: ['classifier']
+  open_layers: ['classifier']
+  optim: sgd
+  print_freq: 20
+  seed: 1
+  staged_lr: True
+  start_epoch: 0
+  stepsize: [20]
+  weight_decay: 1e-05
+use_gpu: True
+video:
+  pooling_method: avg
+  sample_method: evenly
+  seq_len: 15
+
+Collecting env info ...
+** System info **
+PyTorch version: 1.13.1+cu117
+Is debug build: False
+CUDA used to build PyTorch: 11.7
+ROCM used to build PyTorch: N/A
+
+OS: Ubuntu 20.04.5 LTS (x86_64)
+GCC version: (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
+Clang version: Could not collect
+CMake version: version 3.16.3
+Libc version: glibc-2.17
+
+Python version: 3.7.16 (default, Jan 17 2023, 22:20:44)  [GCC 11.2.0] (64-bit runtime)
+Python platform: Linux-5.4.0-137-generic-x86_64-with-debian-bullseye-sid
+Is CUDA available: True
+CUDA runtime version: Could not collect
+CUDA_MODULE_LOADING set to: LAZY
+GPU models and configuration: 
+GPU 0: NVIDIA GeForce RTX 2080 Ti
+GPU 1: NVIDIA GeForce RTX 2080 Ti
+
+Nvidia driver version: 525.78.01
+cuDNN version: Could not collect
+HIP runtime version: N/A
+MIOpen runtime version: N/A
+Is XNNPACK available: True
+
+Versions of relevant libraries:
+[pip3] numpy==1.21.6
+[pip3] torch==1.13.1
+[pip3] torchaudio==0.13.1
+[pip3] torchreid==1.4.0
+[pip3] torchvision==0.14.1
+[conda] numpy                     1.21.6                   pypi_0    pypi
+[conda] torch                     1.13.1                   pypi_0    pypi
+[conda] torchaudio                0.13.1                   pypi_0    pypi
+[conda] torchreid                 1.4.0                     dev_0    <develop>
+[conda] torchvision               0.14.1                   pypi_0    pypi
+        Pillow (9.4.0)
+
+Building train transforms ...
++ resize to 256x128
++ random flip
++ color jitter
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+Building test transforms ...
++ resize to 256x128
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+=> Loading train (source) dataset
+=> Loaded GRID
+  ----------------------------------------
+  subset   | # ids | # images | # cameras
+  ----------------------------------------
+  train    |   125 |      250 |         6
+  query    |   125 |      125 |         5
+  gallery  |   126 |      900 |         5
+  ----------------------------------------
+=> Loading test (target) dataset
+=> Loaded Market1501
+  ----------------------------------------
+  subset   | # ids | # images | # cameras
+  ----------------------------------------
+  train    |   751 |    12936 |         6
+  query    |   750 |     3368 |         6
+  gallery  |   751 |    15913 |         6
+  ----------------------------------------
+
+
+  **************** Summary ****************
+  source            : ['grid']
+  # source datasets : 1
+  # source ids      : 125
+  # source images   : 250
+  # source cameras  : 6
+  target            : ['market1501']
+  *****************************************
+
+
+Building model: osnet_x1_0_efdmix23_a0d1
+Insert EFDMix after the following layers: ['conv2', 'conv3']
+Successfully loaded imagenet pretrained weights from "/home/mert/.cache/torch/checkpoints/osnet_x1_0_imagenet.pth"
+** The following layers are discarded due to unmatched keys or layer size: ['classifier.weight', 'classifier.bias']
+Model complexity: params=2,193,616 flops=978,878,352
+Building softmax-engine for image-reid
+=> Start training
+##### Evaluating market1501 (target) #####
+Extracting features from query set ...
+Done, obtained 3368-by-512 matrix
+Extracting features from gallery set ...
+Done, obtained 15913-by-512 matrix
+Speed: 0.0553 sec/batch
+Computing distance matrix with metric=cosine ...
+Computing CMC and mAP ...
+** Results **
+mAP: 3.7%
+CMC curve
+Rank-1  : 11.3%
+Rank-5  : 23.5%
+Rank-10 : 30.6%
+Rank-20 : 38.5%
+Checkpoint saved to "EFDMix/osnet_x1_0_efdmix23_a0d1/grid2market/model/model.pth.tar-5"
+##### Evaluating market1501 (target) #####
+Extracting features from query set ...
+Done, obtained 3368-by-512 matrix
+Extracting features from gallery set ...
+Done, obtained 15913-by-512 matrix
+Speed: 0.0406 sec/batch
+Computing distance matrix with metric=cosine ...
+Computing CMC and mAP ...
+** Results **
+mAP: 5.8%
+CMC curve
+Rank-1  : 17.8%
+Rank-5  : 32.2%
+Rank-10 : 39.2%
+Rank-20 : 47.8%
+Checkpoint saved to "EFDMix/osnet_x1_0_efdmix23_a0d1/grid2market/model/model.pth.tar-10"
+##### Evaluating market1501 (target) #####
+Extracting features from query set ...
+Done, obtained 3368-by-512 matrix
+Extracting features from gallery set ...
+Done, obtained 15913-by-512 matrix
+Speed: 0.0398 sec/batch
+Computing distance matrix with metric=cosine ...
+Computing CMC and mAP ...
+** Results **
+mAP: 6.0%
+CMC curve
+Rank-1  : 18.5%
+Rank-5  : 32.7%
+Rank-10 : 40.7%
+Rank-20 : 48.8%
+Checkpoint saved to "EFDMix/osnet_x1_0_efdmix23_a0d1/grid2market/model/model.pth.tar-15"
+##### Evaluating market1501 (target) #####
+Extracting features from query set ...
+Done, obtained 3368-by-512 matrix
+Extracting features from gallery set ...
+Done, obtained 15913-by-512 matrix
+Speed: 0.0407 sec/batch
+Computing distance matrix with metric=cosine ...
+Computing CMC and mAP ...
+** Results **
+mAP: 6.7%
+CMC curve
+Rank-1  : 19.7%
+Rank-5  : 35.5%
+Rank-10 : 43.9%
+Rank-20 : 51.8%
+Checkpoint saved to "EFDMix/osnet_x1_0_efdmix23_a0d1/grid2market/model/model.pth.tar-20"
+##### Evaluating market1501 (target) #####
+Extracting features from query set ...
+Done, obtained 3368-by-512 matrix
+Extracting features from gallery set ...
+Done, obtained 15913-by-512 matrix
+Speed: 0.0410 sec/batch
+Computing distance matrix with metric=cosine ...
+Computing CMC and mAP ...
+** Results **
+mAP: 6.8%
+CMC curve
+Rank-1  : 20.1%
+Rank-5  : 35.4%
+Rank-10 : 43.1%
+Rank-20 : 51.7%
+Checkpoint saved to "EFDMix/osnet_x1_0_efdmix23_a0d1/grid2market/model/model.pth.tar-25"
+##### Evaluating market1501 (target) #####
+Extracting features from query set ...
+Done, obtained 3368-by-512 matrix
+Extracting features from gallery set ...
+Done, obtained 15913-by-512 matrix
+Speed: 0.0413 sec/batch
+Computing distance matrix with metric=cosine ...
+Computing CMC and mAP ...
+** Results **
+mAP: 6.8%
+CMC curve
+Rank-1  : 20.0%
+Rank-5  : 35.2%
+Rank-10 : 43.1%
+Rank-20 : 51.5%
+Checkpoint saved to "EFDMix/osnet_x1_0_efdmix23_a0d1/grid2market/model/model.pth.tar-30"
+##### Evaluating market1501 (target) #####
+Extracting features from query set ...
+Done, obtained 3368-by-512 matrix
+Extracting features from gallery set ...
+Done, obtained 15913-by-512 matrix
+Speed: 0.0408 sec/batch
+Computing distance matrix with metric=cosine ...
+Computing CMC and mAP ...
+** Results **
+mAP: 6.8%
+CMC curve
+Rank-1  : 20.1%
+Rank-5  : 35.2%
+Rank-10 : 43.2%
+Rank-20 : 51.7%
+Checkpoint saved to "EFDMix/osnet_x1_0_efdmix23_a0d1/grid2market/model/model.pth.tar-35"
+##### Evaluating market1501 (target) #####
+Extracting features from query set ...
+Done, obtained 3368-by-512 matrix
+Extracting features from gallery set ...
+Done, obtained 15913-by-512 matrix
+Speed: 0.0403 sec/batch
+Computing distance matrix with metric=cosine ...
+Computing CMC and mAP ...
+** Results **
+mAP: 6.7%
+CMC curve
+Rank-1  : 20.0%
+Rank-5  : 35.0%
+Rank-10 : 42.8%
+Rank-20 : 51.3%
+Checkpoint saved to "EFDMix/osnet_x1_0_efdmix23_a0d1/grid2market/model/model.pth.tar-40"
+##### Evaluating market1501 (target) #####
+Extracting features from query set ...
+Done, obtained 3368-by-512 matrix
+Extracting features from gallery set ...
+Done, obtained 15913-by-512 matrix
+Speed: 0.0404 sec/batch
+Computing distance matrix with metric=cosine ...
+Computing CMC and mAP ...
+** Results **
+mAP: 6.9%
+CMC curve
+Rank-1  : 20.5%
+Rank-5  : 35.7%
+Rank-10 : 43.5%
+Rank-20 : 51.9%
+Checkpoint saved to "EFDMix/osnet_x1_0_efdmix23_a0d1/grid2market/model/model.pth.tar-45"
+##### Evaluating market1501 (target) #####
+Extracting features from query set ...
+Done, obtained 3368-by-512 matrix
+Extracting features from gallery set ...
+Done, obtained 15913-by-512 matrix
+Speed: 0.0406 sec/batch
+Computing distance matrix with metric=cosine ...
+Computing CMC and mAP ...
+** Results **
+mAP: 6.7%
+CMC curve
+Rank-1  : 20.3%
+Rank-5  : 35.5%
+Rank-10 : 43.0%
+Rank-20 : 51.8%
+Checkpoint saved to "EFDMix/osnet_x1_0_efdmix23_a0d1/grid2market/model/model.pth.tar-50"
+##### Evaluating market1501 (target) #####
+Extracting features from query set ...
+Done, obtained 3368-by-512 matrix
+Extracting features from gallery set ...
+Done, obtained 15913-by-512 matrix
+Speed: 0.0406 sec/batch
+Computing distance matrix with metric=cosine ...
+Computing CMC and mAP ...
+** Results **
+mAP: 6.8%
+CMC curve
+Rank-1  : 20.8%
+Rank-5  : 35.6%
+Rank-10 : 43.7%
+Rank-20 : 51.6%
+Checkpoint saved to "EFDMix/osnet_x1_0_efdmix23_a0d1/grid2market/model/model.pth.tar-55"
+=> Final test
+##### Evaluating market1501 (target) #####
+Extracting features from query set ...
+Done, obtained 3368-by-512 matrix
+Extracting features from gallery set ...
+Done, obtained 15913-by-512 matrix
+Speed: 0.0401 sec/batch
+Computing distance matrix with metric=cosine ...
+Computing CMC and mAP ...
+** Results **
+mAP: 6.8%
+CMC curve
+Rank-1  : 20.0%
+Rank-5  : 35.5%
+Rank-10 : 43.7%
+Rank-20 : 52.3%
+Checkpoint saved to "EFDMix/osnet_x1_0_efdmix23_a0d1/grid2market/model/model.pth.tar-60"
+Elapsed 0:04:04

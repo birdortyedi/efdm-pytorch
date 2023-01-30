@@ -143,3 +143,6 @@ ArbitraryStyleTransfer/logs
 ArbitraryStyleTransfer/output*
 
 ArbitraryStyleTransfer/models/*.pth
+
+**checkpoint
+**/model
