@@ -6,7 +6,9 @@ by Yabin Zhang, Minghan Li, Ruihuang Li, Kui Jia, Lei Zhang.
 
 Original Repository: [EFDM](https://github.com/YBZh/EFDM/) by [YBZh](https://github.com/YBZh/)
 
-README file of the original paper are given in `OriginalPaper/README.md`. 
+README file of the original paper are given in `OriginalPaper/README.md`. The exact steps to reproduce the results can be found in this README file.
+
+The trained weights and training logs are available at this anonymous [link](https://mega.nz/folder/8uREADKB#ZGsB1sYqXkkqbC8rZxI8jA)
 
 **Summary:** In this reproducibility study, we present our results and experience during replicating the paper, titled Exact Feature Distribution Matching for Arbitrary Style Transfer and Domain Generalization. In real‐world scenarios, the feature distributions are mostly much more complicated than Gaussian, so only mean and standard deviation may not be fully representative to match them. This paper introduces a novel strategy to exactly match the histograms of image features via the Sort‐Matching algorithm in a computationally feasible way. We were able to reproduce most of the results presented in the original paper both qualitatively and quantitatively. 
 
